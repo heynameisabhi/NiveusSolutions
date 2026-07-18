@@ -15,3 +15,25 @@ export const getDocumentDetails = (documentId) => api.get(`/documents/${document
 export const getNormalizationReport = () => api.get('/normalization-report').then(r => r.data)
 export const triggerIngest = (folder = null) =>
   api.post('/ingest', folder ? { folder } : {}).then(r => r.data)
+
+// Clinic management
+export const listClinicConfigs = () => api.get('/clinics/configs').then(r => r.data)
+export const deleteClinicConfig = (clinicId) => api.delete(`/clinics/configs/${clinicId}`).then(r => r.data)
+
+// File uploads (multipart)
+export const uploadSampleData = (file) => {
+  const form = new FormData()
+  form.append('file', file)
+  return api.post('/upload/sample-data', form, {
+    headers: { 'Content-Type': 'multipart/form-data' },
+  }).then(r => r.data)
+}
+
+export const uploadClinicConfig = (file) => {
+  const form = new FormData()
+  form.append('file', file)
+  return api.post('/upload/clinic-config', form, {
+    headers: { 'Content-Type': 'multipart/form-data' },
+  }).then(r => r.data)
+}
+

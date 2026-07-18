@@ -4,6 +4,7 @@ import Dashboard from './pages/Dashboard'
 import FlaggedRecords from './pages/FlaggedRecords'
 import RecordInspector from './pages/RecordInspector'
 import ClinicAnalytics from './pages/ClinicAnalytics'
+import UploadManager from './pages/UploadManager'
 
 export default function App() {
   return (
@@ -18,6 +19,7 @@ export default function App() {
             <Route path="/records" element={<RecordInspector />} />
             <Route path="/records/:id" element={<RecordInspector />} />
             <Route path="/clinics" element={<ClinicAnalytics />} />
+            <Route path="/upload" element={<UploadManager />} />
           </Routes>
         </main>
       </div>

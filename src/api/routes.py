@@ -9,13 +9,20 @@ Endpoints:
     GET  /api/medications            → discharge medications
     GET  /api/runs                   → pipeline run history
     POST /api/ingest                 → trigger pipeline run
+    POST /api/upload/sample-data     → upload a sample JSON file
+    POST /api/upload/clinic-config   → upload a clinic YAML config
+    GET  /api/clinics/configs        → list all registered clinic configs
+    DELETE /api/clinics/configs/{id} → delete a clinic config
 """
 from __future__ import annotations
 
 import logging
+import os
+from pathlib import Path
 from typing import Optional
 
-from fastapi import APIRouter, Depends, HTTPException, Query
+import yaml
+from fastapi import APIRouter, Depends, HTTPException, Query, UploadFile, File
 from sqlalchemy import desc, func, select
 from sqlalchemy.orm import Session
 
@@ -25,6 +32,109 @@ from src.services.pipeline import DEFAULT_SAMPLE_FOLDER, run_pipeline
 
 logger = logging.getLogger(__name__)
 router = APIRouter()
+
+# Resolve project-root-relative paths
+_PROJECT_ROOT = Path(__file__).parent.parent.parent
+SAMPLE_DATA_DIR = _PROJECT_ROOT / "sample-data"
+CLINICS_CONFIG_DIR = _PROJECT_ROOT / "config" / "clinics"
+
+
+# ---------------------------------------------------------------------------
+# POST /api/upload/sample-data
+# ---------------------------------------------------------------------------
+@router.post("/upload/sample-data")
+async def upload_sample_data(file: UploadFile = File(...)):
+    """
+    Upload a sample JSON data file to the sample-data folder.
+    After upload, the file is available for the next pipeline run.
+    """
+    if not file.filename or not file.filename.endswith(".json"):
+        raise HTTPException(status_code=400, detail="Only .json files are accepted.")
+
+    SAMPLE_DATA_DIR.mkdir(parents=True, exist_ok=True)
+    dest = SAMPLE_DATA_DIR / file.filename
+    try:
+        content = await file.read()
+        dest.write_bytes(content)
+        logger.info("Uploaded sample data file: %s", dest)
+        return {"message": f"File '{file.filename}' uploaded successfully.", "path": str(dest)}
+    except Exception as exc:
+        logger.exception("Failed to save uploaded file: %s", exc)
+        raise HTTPException(status_code=500, detail=str(exc)) from exc
+
+
+# ---------------------------------------------------------------------------
+# POST /api/upload/clinic-config
+# ---------------------------------------------------------------------------
+@router.post("/upload/clinic-config")
+async def upload_clinic_config(file: UploadFile = File(...)):
+    """
+    Upload a clinic YAML config file to config/clinics/.
+    The new clinic is immediately usable by the pipeline.
+    """
+    if not file.filename or not (file.filename.endswith(".yaml") or file.filename.endswith(".yml")):
+        raise HTTPException(status_code=400, detail="Only .yaml / .yml files are accepted.")
+
+    CLINICS_CONFIG_DIR.mkdir(parents=True, exist_ok=True)
+    dest = CLINICS_CONFIG_DIR / file.filename
+    try:
+        content = await file.read()
+        # Validate it is parseable YAML
+        parsed = yaml.safe_load(content)
+        if not isinstance(parsed, dict) or "clinic_id" not in parsed:
+            raise ValueError("YAML must be a mapping containing at least 'clinic_id'.")
+        dest.write_bytes(content)
+        logger.info("Uploaded clinic config: %s", dest)
+        return {
+            "message": f"Clinic config '{file.filename}' uploaded successfully.",
+            "clinic_id": parsed.get("clinic_id"),
+            "clinic_name": parsed.get("clinic_name", ""),
+        }
+    except ValueError as exc:
+        raise HTTPException(status_code=422, detail=str(exc)) from exc
+    except Exception as exc:
+        logger.exception("Failed to save clinic config: %s", exc)
+        raise HTTPException(status_code=500, detail=str(exc)) from exc
+
+
+# ---------------------------------------------------------------------------
+# GET /api/clinics/configs  — list all registered clinic YAML configs
+# ---------------------------------------------------------------------------
+@router.get("/clinics/configs")
+def list_clinic_configs():
+    """Return metadata for all clinic YAML configs in config/clinics/."""
+    configs = []
+    if CLINICS_CONFIG_DIR.exists():
+        for path in sorted(CLINICS_CONFIG_DIR.glob("*.yaml")):
+            try:
+                parsed = yaml.safe_load(path.read_text(encoding="utf-8"))
+                configs.append({
+                    "filename": path.name,
+                    "clinic_id": parsed.get("clinic_id", ""),
+                    "clinic_name": parsed.get("clinic_name", ""),
+                    "field_count": len(parsed.get("field_mappings", {})),
+                })
+            except Exception:
+                configs.append({"filename": path.name, "clinic_id": "", "clinic_name": "(parse error)", "field_count": 0})
+    return configs
+
+
+# ---------------------------------------------------------------------------
+# DELETE /api/clinics/configs/{clinic_id}
+# ---------------------------------------------------------------------------
+@router.delete("/clinics/configs/{clinic_id}")
+def delete_clinic_config(clinic_id: str):
+    """Delete a clinic YAML config by clinic_id."""
+    if CLINICS_CONFIG_DIR.exists():
+        for path in CLINICS_CONFIG_DIR.glob("*.yaml"):
+            try:
+                parsed = yaml.safe_load(path.read_text(encoding="utf-8"))
+                if parsed.get("clinic_id") == clinic_id:
+                    path.unlink()
+                    return {"message": f"Clinic '{clinic_id}' config deleted."}
+            except Exception:
+                continue
+    raise HTTPException(status_code=404, detail=f"No config found for clinic_id='{clinic_id}'.")
 
 
 # ---------------------------------------------------------------------------
