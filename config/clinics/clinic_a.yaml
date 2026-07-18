@@ -1,0 +1,30 @@
+# Clinic A — City Medical Center
+# Uses nested patient object and dot-notation lab keys
+clinic_id: clinic_a
+clinic_name: City Medical Center
+
+field_mappings:
+  patient_id: patient.id
+  patient_name: patient.fullName
+  gender: patient.sex
+  date_of_birth: patient.dob
+  report_date: report_date
+  clinic_id_field: clinic
+  medications: medications
+  lab_results:
+    hemoglobin: lab_results.hb
+    wbc: lab_results.wbc
+    platelets: lab_results.platelets
+    glucose: lab_results.glucose
+    creatinine: lab_results.creatinine
+
+dedup_fields:
+  - patient_id
+  - clinic_id
+  - report_date
+
+gender_map:
+  M: Male
+  F: Female
+  male: Male
+  female: Female

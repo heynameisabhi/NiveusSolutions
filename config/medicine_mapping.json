@@ -1,0 +1,18 @@
+{
+  "metformin":   "Metformin",
+  "metformine":  "Metformin",
+  "glucophage":  "Metformin",
+  "lisinopril":  "Lisinopril",
+  "lisinipril":  "Lisinopril",
+  "aspirin":     "Aspirin",
+  "asa":         "Aspirin",
+  "atenolol":    "Atenolol",
+  "tenormin":    "Atenolol",
+  "amlodipine":  "Amlodipine",
+  "norvasc":     "Amlodipine",
+  "omeprazole":  "Omeprazole",
+  "prilosec":    "Omeprazole",
+  "paracetamol": "Paracetamol",
+  "acetaminophen": "Paracetamol",
+  "ibuprofen":   "Ibuprofen"
+}

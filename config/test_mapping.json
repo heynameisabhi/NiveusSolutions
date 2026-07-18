@@ -1,0 +1,80 @@
+{
+  "HAEMOGLOBIN": [
+    "HAEMOGLOBIN", "Haemoglobin", "haemoglobin", "Hb", "HGB", "hb",
+    "aemoglobin", "aemoglobin level", "hemoglobin", "HEMOGLOBIN"
+  ],
+  "WHITE BLOOD CELL COUNT": [
+    "TOTAL WBC COUNT", "Total WBC Count", "WBC COUNT", "WBC", "Total WBC",
+    "tal WBC Count", "White Blood Cell Count", "LEUKOCYTE COUNT",
+    "TOTAL LEUCOCYTE COUNT", "TOTAL LEUCOCYTE COUNT (TLC)"
+  ],
+  "Serum Creatinine": [
+    "CREATININE, SERUM", "SERUM CREATININE", "Serum Creatinine",
+    "CREATININE", "Creatinine", "creatinine"
+  ],
+  "SODIUM": ["Na+", "SODIUM", "Sodium", "sodium"],
+  "POTASSIUM": ["K+", "POTASSIUM", "Potassium", "potassium"],
+  "Red Blood Cell Count (RBC)": [
+    "RBC", "RBC COUNT", "Red Blood Cell Count", "ERYTHROCYTES",
+    "RBC count"
+  ],
+  "Platelet Count": [
+    "PLATELET COUNT", "Platelet Count", "platelets", "PLT",
+    "atelet Count", "Thrombocyte Count", "THROMBOCYTE COUNT"
+  ],
+  "ALBUMIN": ["ALBUMIN", "ALBUMIN, SERUM", "Albumin", "albumin"],
+  "HEMATOCRIT": [
+    "HAEMATOCRIT", "Haematocrit (PCV)", "PCV", "HCT", "Hematocrit",
+    "ematocrit HCT", "BC INDICES"
+  ],
+  "Procalcitonin": ["PROCALCITONIN", "PROCALCITONIN (PCT)", "PCT"],
+  "CREATININE": ["CREATININE", "Creatinine", "creatinine"],
+  "C-REACTIVE PROTEIN": [
+    "C-REACTIVE PROTEIN (CRP)", "CRP", "CRP-QUANTITATIVE",
+    "C-Reactive Protein", "C REACTIVE PROTEIN"
+  ],
+  "ALANINE AMINOTRANSFERASE": [
+    "ALANINE AMINOTRANSFERASE", "ALT (SGPT)", "SGPT", "ALT",
+    "Alanine Aminotransferase"
+  ],
+  "ASPARTATE AMINOTRANSFERASE": [
+    "ASPARTATE AMINOTRANSFERASE", "AST (SGOT)", "SGOT", "AST",
+    "Aspartate Aminotransferase"
+  ],
+  "URIC ACID": ["URIC ACID", "URIC ACID, SERUM", "Uric Acid", "uric acid"],
+  "CALCIUM": ["CALCIUM", "Ca2+ (Calcium)", "Calcium", "calcium", "Ca"],
+  "Estimated Glomerular Filtration Rate (eGFR)": [
+    "FILTRATION RATE", "eGFR - ESTIMATED GLOMERULAR FILTRATION RATE",
+    "eGFR", "GFR", "ESTIMATED GFR"
+  ],
+  "Urea Nitrogen (BUN)": [
+    "BLOOD UREA NITROGEN", "UREA", "BUN", "Blood Urea Nitrogen",
+    "Urea Nitrogen", "UREA NITROGEN"
+  ],
+  "LYMPHOCYTES": [
+    "LYMPHOCYTES", "Lymphocytes", "lymphocytes",
+    "mphocytes", "LYM", "Lymphocyte Count"
+  ],
+  "NEUTROPHILS": [
+    "NEUTROPHILS", "Neutrophils", "neutrophils",
+    "eutrophils", "NEUT", "Neutrophil Count"
+  ],
+  "EOSINOPHILS": [
+    "EOSINOPHILS", "Eosinophils", "sinophils", "EOS"
+  ],
+  "MONOCYTES": [
+    "MONOCYTES", "Monocytes", "onocytes", "MONO"
+  ],
+  "BASOPHILS": [
+    "BASOPHILS", "Basophils", "sophils", "BASO"
+  ],
+  "ALKALINE PHOSPHATASE": [
+    "ALKALINE PHOSPHATASE", "ALP", "Alkaline Phosphatase"
+  ],
+  "GLOBULIN": ["GLOBULIN", "Globulin", "globulin"],
+  "GLUCOSE": [
+    "GLUCOSE", "Glucose", "BLOOD GLUCOSE", "BLOOD SUGAR",
+    "RANDOM BLOOD SUGAR", "FASTING BLOOD SUGAR", "RBS", "FBS",
+    "BSR", "blood_sugar"
+  ]
+}

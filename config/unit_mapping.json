@@ -1,0 +1,11 @@
+{
+  "g/dl":   { "to": "g/dL", "factor": 1.0 },
+  "g/L":    { "to": "g/dL", "factor": 0.1 },
+  "mg/dl":  { "to": "mg/dL", "factor": 1.0 },
+  "mmol/L": { "to": "mg/dL", "factor": 18.0, "tests": ["glucose"] },
+  "/ul":    { "to": "10^3/uL", "factor": 0.001 },
+  "/uL":    { "to": "10^3/uL", "factor": 0.001 },
+  "10^3/ul":{ "to": "10^3/uL", "factor": 1.0 },
+  "10^6/ul":{ "to": "10^3/uL", "factor": 1000.0 },
+  "umol/L": { "to": "mg/dL", "factor": 0.0113, "tests": ["creatinine"] }
+}

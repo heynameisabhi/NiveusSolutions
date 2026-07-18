@@ -1,0 +1,26 @@
+{
+  "hemoglobin": {
+    "unit": "g/dL",
+    "male":    { "min": 13.5, "max": 17.5 },
+    "female":  { "min": 12.0, "max": 15.5 },
+    "default": { "min": 12.0, "max": 17.5 }
+  },
+  "wbc": {
+    "unit": "10^3/uL",
+    "default": { "min": 4.5, "max": 11.0 }
+  },
+  "platelets": {
+    "unit": "10^3/uL",
+    "default": { "min": 150.0, "max": 400.0 }
+  },
+  "glucose": {
+    "unit": "mg/dL",
+    "default": { "min": 70.0, "max": 100.0 }
+  },
+  "creatinine": {
+    "unit": "mg/dL",
+    "male":    { "min": 0.7, "max": 1.3 },
+    "female":  { "min": 0.6, "max": 1.1 },
+    "default": { "min": 0.6, "max": 1.3 }
+  }
+}

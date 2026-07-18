@@ -1,0 +1,30 @@
+# Clinic B — Riverside Health Clinic
+# Uses flat structure with different field names
+clinic_id: clinic_b
+clinic_name: Riverside Health Clinic
+
+field_mappings:
+  patient_id: patient_no
+  patient_name: name
+  gender: gender
+  age: age
+  report_date: date
+  clinic_id_field: source
+  medications: drugs
+  lab_results:
+    hemoglobin: tests.haemoglobin
+    wbc: tests.white_cells
+    platelets: tests.platelets
+    glucose: tests.blood_sugar
+    creatinine: tests.kidney
+
+dedup_fields:
+  - patient_id
+  - clinic_id
+  - report_date
+
+gender_map:
+  male: Male
+  female: Female
+  m: Male
+  f: Female
